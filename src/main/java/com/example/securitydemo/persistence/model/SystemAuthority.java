@@ -1,11 +1,11 @@
 package com.example.securitydemo.persistence.model;
 
-import java.io.Serializable;
-import java.util.Date;
-
 import com.example.securitydemo.common.ShortUUIDGenerator;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.io.Serializable;
+import java.util.Date;
 
 @Data
 @NoArgsConstructor

@@ -1,10 +1,10 @@
 package com.example.securitydemo.persistence.mapper;
 
 import com.example.securitydemo.persistence.model.SystemAuthority;
-import java.util.List;
-
 import org.apache.ibatis.annotations.*;
 import org.apache.ibatis.type.JdbcType;
+
+import java.util.List;
 
 @Mapper
 public interface SystemAuthorityMapper {

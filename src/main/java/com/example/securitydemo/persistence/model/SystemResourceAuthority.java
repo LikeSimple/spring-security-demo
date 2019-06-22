@@ -1,8 +1,9 @@
 package com.example.securitydemo.persistence.model;
 
+import lombok.Data;
+
 import java.io.Serializable;
 import java.util.Date;
-import lombok.Data;
 
 @Data
 public class SystemResourceAuthority implements Serializable {
