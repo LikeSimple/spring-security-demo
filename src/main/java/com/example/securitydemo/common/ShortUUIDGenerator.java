@@ -1,5 +1,7 @@
 package com.example.securitydemo.common;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
 import java.util.UUID;
 
 public class ShortUUIDGenerator {
