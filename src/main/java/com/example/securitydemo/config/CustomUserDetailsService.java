@@ -15,22 +15,26 @@ import java.util.List;
 @Configuration
 public class CustomUserDetailsService implements UserDetailsService {
 
-    private SystemUserMapper systemUserMapper;
+    final private SystemUserMapper systemUserMapperImpl;
 
-    private SystemAuthorityMapper systemAuthorityMapper;
+    final private SystemAuthorityMapper systemAuthorityMapper;
 
-    public CustomUserDetailsService(SystemUserMapper systemUserMapper, SystemAuthorityMapper systemAuthorityMapper) {
-        this.systemUserMapper = systemUserMapper;
+    public CustomUserDetailsService(SystemUserMapper systemUserMapperImpl, SystemAuthorityMapper systemAuthorityMapper) {
+        this.systemUserMapperImpl = systemUserMapperImpl;
         this.systemAuthorityMapper = systemAuthorityMapper;
     }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-        if (null == username || "".equals(username)) throw new UsernameNotFoundException("username is empty");
+        if (null == username || "".equals(username)) {
+            throw new UsernameNotFoundException("username is empty");
+        }
 
-        SystemUser systemUser = systemUserMapper.selectByUsername(username);
-        if (null == systemUser) throw new UsernameNotFoundException("user " + username + " not find");
+        SystemUser systemUser = systemUserMapperImpl.selectByUsername(username);
+        if (null == systemUser) {
+            throw new UsernameNotFoundException("user " + username + " not find");
+        }
         List<SystemAuthority> systemAuthoritieList = systemAuthorityMapper.selectByUserId(systemUser.getId());
 
         return new CustomUserDetails(systemUser, systemAuthoritieList);

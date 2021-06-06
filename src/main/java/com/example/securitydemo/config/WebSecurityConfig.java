@@ -1,5 +1,6 @@
 package com.example.securitydemo.config;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -15,6 +16,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
 @EnableWebSecurity
+@Slf4j
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private UserDetailsService userDetailsService;
@@ -25,7 +27,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     public PasswordEncoder getPasswordEncoder() {
-        return new BCryptPasswordEncoder();
+        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        log.info("User Password(123456): " + passwordEncoder.encode("123456"));
+        return passwordEncoder;
     }
 
     @Bean
@@ -43,6 +47,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable();
         http.formLogin().and().logout();
+//        http.rememberMe();
         http.authorizeRequests().antMatchers("/secure/**").authenticated();
 //        http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     }
